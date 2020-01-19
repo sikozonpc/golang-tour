@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"strings"
 )
 
 // A struct is a collection of values
@@ -82,8 +83,78 @@ func main() {
 	// The make function allocates a zeroed array and returns a slice that refers to that array:
 	zeroedArray := make([]int, 5, 5)
 	printSlice(zeroedArray) // len=5 cap=5 [0 0 0 0 0]
+
+	// Append stuff
+	zeroedArray = append(zeroedArray, 5, 1212)
+	printSlice(zeroedArray)
+
+	//// For RANGE
+	var pow = []int{1, 2, 4, 6, 10, 42, 200}
+
+	for index, value := range pow {
+		fmt.Println(index, value)
+	}
+
+	// You can ommit the `index` or the `value` with the `_`
+	for _, value := range pow {
+		fmt.Println(value)
+	}
+
+	for index := range pow {
+		fmt.Println(index)
+	}
+
+	//
+	// MAPS
+	//
+	// Maps are key-value pairs colections, just like an hash table
+	// Please refer to : https://blog.golang.org/go-maps-in-action for more information
+
+	// map[KeyType]ValueType
+	names := make(map[string]string)
+
+	names["tiago"] = "Taquelim"
+	names["tigas"] = "maligas"
+
+	// this retrieves the value of "tiago" key
+	val := names["tiago"]
+	fmt.Println(val)
+
+	// A two-value asigment tests if the key lookup exists
+	key, ok := names["sugar"]
+	fmt.Println(key, ok) // false
+
+	delete(names, "tigas")
+
+	names["margariga"] = "someone"
+
+	// Initialize a map with some data
+	commits := map[string]int{
+		"rsc": 3711,
+		"r":   2138,
+		"gri": 1908,
+		"adg": 912,
+	}
+
+	for key, value := range commits {
+		fmt.Printf("key: %s: ,value: %d \n", key, value)
+	}
+
+	//
+	// FUNCTIONS AS VALUES, just like JavaScript
+	//
+
+	purgeSpaces := func(str string) []string {
+		return strings.Fields(str)
+	}
+
+	fmt.Println(purgeSpaces("Hello world"))
 }
 
 func printSlice(s []int) {
 	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+}
+
+func compute(fn func(float64, float64) float64) float64 {
+	return fn(3, 4)
 }

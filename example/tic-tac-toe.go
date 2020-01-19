@@ -65,7 +65,7 @@ func computerMove(board [][]string) [][]string {
 }
 
 func checkGameOver(board [][]string) string {
-	// Check winner, by all the combinations, please refacor this xD
+	// Check winner, by all the combinations, please refatcor this xD
 	switch {
 	//// X
 	// Horizontal check
